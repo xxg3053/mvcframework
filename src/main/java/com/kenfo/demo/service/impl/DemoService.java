@@ -1,7 +1,7 @@
-package com.gupaoedu.demo.service.impl;
+package com.kenfo.demo.service.impl;
 
-import com.gupaoedu.demo.service.IDemoService;
-import com.gupaoedu.mvcframework.annotation.GPService;
+import com.kenfo.demo.service.IDemoService;
+import com.kenfo.mvcframework.annotation.KFService;
 
 /**
  * @author kenfo
@@ -10,7 +10,7 @@ import com.gupaoedu.mvcframework.annotation.GPService;
  * @Description: TODO
  * @date 2018/2/11 下午1:48
  */
-@GPService
+@KFService
 public class DemoService implements IDemoService {
     public String get(String name) {
         return "my name is " + name;

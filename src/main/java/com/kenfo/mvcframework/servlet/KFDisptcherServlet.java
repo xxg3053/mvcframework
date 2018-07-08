@@ -1,6 +1,6 @@
-package com.gupaoedu.mvcframework.servlet;
+package com.kenfo.mvcframework.servlet;
 
-import com.gupaoedu.mvcframework.annotation.*;
+import com.kenfo.mvcframework.annotation.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -21,11 +21,10 @@ import java.util.regex.Pattern;
 /**
  * @author kenfo
  * @version V1.0
- * @Package com.gupaoedu.mvcframework.servlet
  * @Description: TODO
  * @date 2018/2/11 下午1:28
  */
-public class GPOisptcherServlet extends HttpServlet {
+public class KFDisptcherServlet extends HttpServlet {
 
     private Properties properties = new Properties();
 
@@ -117,15 +116,15 @@ public class GPOisptcherServlet extends HttpServlet {
             for(String className: classNames){
                 Class<?> clazz = Class.forName(className);
                 //不是所有类都要初始化
-                if(clazz.isAnnotationPresent(GPController.class)){
+                if(clazz.isAnnotationPresent(KFController.class)){
                     //<bane id="" name="" class="">
                     String beanName = lowerFirst(clazz.getSimpleName());
                     ioc.put(beanName, clazz.newInstance());
-                }else if(clazz.isAnnotationPresent(GPService.class)){
+                }else if(clazz.isAnnotationPresent(KFService.class)){
                     //1. 如果取了名字，优先使用自己的名字进行匹配并注入
                     //2. 如果自己没起名字，默认首字母小写（发生在不是接口的情况）
                     //3. 如果注入的类型是接口的话，要自动找到其实现类的实例
-                    GPService service = clazz.getAnnotation(GPService.class);
+                    KFService service = clazz.getAnnotation(KFService.class);
                     String beanName = service.value();//如果设了值则不为空
                     if("".equals(beanName.trim())){
                         ioc.put(beanName, clazz.newInstance());
@@ -153,11 +152,11 @@ public class GPOisptcherServlet extends HttpServlet {
         for(Map.Entry<String, Object> entry: ioc.entrySet()){
             Field[] fields = entry.getValue().getClass().getDeclaredFields();
             for(Field field:fields){
-                if(!field.isAnnotationPresent(GPAutowired.class)){
+                if(!field.isAnnotationPresent(KFAutowired.class)){
                     continue;
                 }
                 //如果注解加了自定义名字
-                GPAutowired gpAutowired = field.getAnnotation(GPAutowired.class);
+                KFAutowired gpAutowired = field.getAnnotation(KFAutowired.class);
                 String beanName = gpAutowired.value().trim();
                 //通过声明接口注入
                 if("".equals(beanName)){
@@ -182,21 +181,21 @@ public class GPOisptcherServlet extends HttpServlet {
             //把所有的requestMapping扫描出来，读取它的值，跟method关联上，并且放到handleMapping中去
             Class<?> clazz = entry.getValue().getClass();
             //只跟GPcontroller有关
-            if(!clazz.isAnnotationPresent(GPController.class)){
+            if(!clazz.isAnnotationPresent(KFController.class)){
                 continue;
             }
             String baseUrl = "";
-            if(clazz.isAnnotationPresent(GPRequestMapping.class)){
-                GPRequestMapping requestMapping = clazz.getAnnotation(GPRequestMapping.class);
+            if(clazz.isAnnotationPresent(KFRequestMapping.class)){
+                KFRequestMapping requestMapping = clazz.getAnnotation(KFRequestMapping.class);
                 baseUrl = requestMapping.value();
             }
 
             Method[] methods = clazz.getMethods();
             for(Method method:methods){
-                if(!method.isAnnotationPresent(GPRequestMapping.class)){
+                if(!method.isAnnotationPresent(KFRequestMapping.class)){
                     continue;
                 }
-                GPRequestMapping requestMapping = method.getAnnotation(GPRequestMapping.class);
+                KFRequestMapping requestMapping = method.getAnnotation(KFRequestMapping.class);
                 String mappingUrl = ("/" + baseUrl + "/" + requestMapping.value()).replaceAll("/+", "/");
 
                 //handlerMapping.put(mappingUrl, method);
@@ -301,8 +300,8 @@ public class GPOisptcherServlet extends HttpServlet {
             Annotation[][] pa = method.getParameterAnnotations();
             for(int i=0; i<pa.length; i++){
                 for(Annotation a: pa[i]){
-                    if(a instanceof GPRequestParam){
-                        String paramName = ((GPRequestParam)a).value();
+                    if(a instanceof KFRequestParam){
+                        String paramName = ((KFRequestParam)a).value();
                         if(!"".equals(paramName.trim())){
                             paramIndexMapping.put(paramName, i);
                         }

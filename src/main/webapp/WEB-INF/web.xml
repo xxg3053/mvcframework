@@ -6,7 +6,7 @@
 
   <servlet>
     <servlet-name>gupaomvc</servlet-name>
-    <servlet-class>com.gupaoedu.mvcframework.servlet.GPOisptcherServlet</servlet-class>
+    <servlet-class>com.kenfo.mvcframework.servlet.KFDisptcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>application.properties</param-value>

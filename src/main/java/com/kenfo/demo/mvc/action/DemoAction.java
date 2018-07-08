@@ -1,10 +1,10 @@
-package com.gupaoedu.demo.mvc.action;
+package com.kenfo.demo.mvc.action;
 
-import com.gupaoedu.demo.service.IDemoService;
-import com.gupaoedu.mvcframework.annotation.GPAutowired;
-import com.gupaoedu.mvcframework.annotation.GPController;
-import com.gupaoedu.mvcframework.annotation.GPRequestMapping;
-import com.gupaoedu.mvcframework.annotation.GPRequestParam;
+import com.kenfo.demo.service.IDemoService;
+import com.kenfo.mvcframework.annotation.KFAutowired;
+import com.kenfo.mvcframework.annotation.KFController;
+import com.kenfo.mvcframework.annotation.KFRequestMapping;
+import com.kenfo.mvcframework.annotation.KFRequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,16 +17,16 @@ import java.io.IOException;
  * @Description: TODO
  * @date 2018/2/11 下午1:45
  */
-@GPController
-@GPRequestMapping("/web")
+@KFController
+@KFRequestMapping("/web")
 public class DemoAction {
 
-    @GPAutowired
+    @KFAutowired
     IDemoService iDemoService;
 
-    @GPRequestMapping("/query.json")
+    @KFRequestMapping("/query.json")
     public void query(HttpServletRequest req, HttpServletResponse resp,
-                      @GPRequestParam("name") String name){
+                      @KFRequestParam("name") String name){
         String result = iDemoService.get(name);
         try {
             resp.getWriter().write(result);

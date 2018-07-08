@@ -1,11 +1,10 @@
-package com.gupaoedu.mvcframework.annotation;
+package com.kenfo.mvcframework.annotation;
 
 import java.lang.annotation.*;
 
 /**
  * @author kenfo
  * @version V1.0
- * @Package com.gupaoedu.mvcframework.annotation
  * @Description: TODO
  * @date 2018/2/11 下午1:36
  */
@@ -14,6 +13,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 //运行时
 @Retention(RetentionPolicy.RUNTIME)
-public @interface GPService {
+public @interface KFService {
     String value() default  "";
 }

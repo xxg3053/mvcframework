@@ -1,4 +1,4 @@
-package com.gupaoedu.demo.mvc.action;
+package com.kenfo.demo.mvc.action;
 
 /**
  * @author kenfo
